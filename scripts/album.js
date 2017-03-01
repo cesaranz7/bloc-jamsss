@@ -203,14 +203,29 @@ var currentVolume = 80;
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playPauseButton = $('.main-controls .play-pause');
+
+
+var togglePlayFromPlayerBar = $('.main-controls').on('click', '.play-pause', function() {
+
+	if ($('.player-bar .ion-play').length){
+		$('.player-bar .play-pause').empty().append(playerBarPauseButton)
+		$('.album-view-song-list').find('.song-item-number[data-song-number="'+ currentlyPlayingSongNumber+'"]').empty().append(pauseButtonTemplate)
+		currentSoundFile.play();
+	} else if ($('.player-bar .ion-pause')) {
+		$('.player-bar .play-pause').empty().append(playerBarPlayButton)
+		$('.album-view-song-list').find('.song-item-number[data-song-number="'+ currentlyPlayingSongNumber+'"]').empty().append(playButtonTemplate)
+		currentSoundFile.stop();
+	}
+	
+});
+
  
  $(document).ready(function() {
      setCurrentAlbum(albumPicasso);
      $previousButton.click(previousSong);
      $nextButton.click(nextSong);
+     $playPauseButton.click(togglePlayFromPlayerBar);
  });
-  
-
-
 
 
